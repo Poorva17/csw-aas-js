@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
-import Master from './components/Master'
+import ConfigApp from './components/ConfigApp'
 
 export default class App extends Component {
   render () {
     return (
       <div>
-        <Master text='Modern React component module' />
+        <ConfigApp text='Modern React component module' />
       </div>
     )
   }
