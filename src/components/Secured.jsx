@@ -26,7 +26,7 @@ class Secured extends React.Component {
     await this.instantiateKeycloak({url: url})
   }
 
-  async instantiateKeycloak(url) {
+  instantiateKeycloak = async (url) => {
     console.log('instantiating keycloak')
     const keycloakConfig = {...AASConfig, ...this.props.config, ...url}
     const keycloak = KeyCloak(keycloakConfig)
@@ -69,7 +69,7 @@ class Secured extends React.Component {
     }
   }
 
-  isAuthenticated() {
+  isAuthenticated = () => {
     return this.state.authenticated
   }
 }

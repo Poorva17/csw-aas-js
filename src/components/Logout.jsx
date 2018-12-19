@@ -7,7 +7,7 @@ class Logout extends React.Component {
     return <button onClick={() => this.logout()} >Logout</button>
   }
 
-  logout() {
+  logout = () => {
     this.props.history.push('/')
     this.props.keycloak.logout()
   }
