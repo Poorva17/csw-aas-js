@@ -1,4 +1,4 @@
 import Logout from './components/Logout.jsx'
-import Secured from './components/Secured.jsx'
+import {AuthContext, Secured} from './components/Secured.jsx'
 
-export default {Secured, Logout}
+export default {Secured, Logout, AuthContext}

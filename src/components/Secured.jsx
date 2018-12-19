@@ -5,7 +5,9 @@ import PropTypes from 'prop-types'
 import {AASConfig, Config} from '../config/configs'
 import fetch from 'isomorphic-fetch'
 
-class Secured extends React.Component {
+export const AuthContext = React.createContext({keycloak: null, authenticated: false})
+
+export class Secured extends React.Component {
   constructor(props) {
     super(props)
     this.state = {keycloak: null, authenticated: false}
@@ -52,8 +54,13 @@ class Secured extends React.Component {
   render() {
     if (this.state.keycloak) {
       if (this.state.authenticated) {
+        const context = {keycloak: this.state.keycloak, authenticated: this.state.authenticated}
+        console.log('@@@@@@@@@@')
+        console.log(context)
         return <div className='card-content white-text'>
-          {this.props.children}
+          <AuthContext.Provider value={context}>
+            {this.props.children}
+          </AuthContext.Provider>
           <Logout keycloak={this.state.keycloak} />
         </div>
       } else {
@@ -79,5 +86,3 @@ Secured.propTypes = {
   onAuthentication: PropTypes.func,
   children: PropTypes.node
 }
-
-export default Secured
