@@ -27,6 +27,7 @@ class Secured extends React.Component {
   }
 
   async instantiateKeycloak(url) {
+    console.log('instantiating keycloak')
     const keycloakConfig = {...AASConfig, ...this.props.config, ...url}
     const keycloak = KeyCloak(keycloakConfig)
     keycloak.onTokenExpired = () => {
@@ -39,7 +40,13 @@ class Secured extends React.Component {
         })
     }
     const authenticated = await keycloak.init({onLoad: 'login-required', flow: 'hybrid'})
-    this.setState({keycloak, authenticated})
+    await authenticated.success(() => {
+      this.setState({keycloak, authenticated: true})
+      this.props.callback(this.state.authenticated)
+    }).error(() => {
+      this.setState({keycloak, authenticated: false})
+      this.props.callback(this.state.authenticated)
+    })
   }
 
   render() {
@@ -61,10 +68,15 @@ class Secured extends React.Component {
       </div>
     }
   }
+
+  isAuthenticated() {
+    return this.state.authenticated
+  }
 }
 
 Secured.propTypes = {
   config: PropTypes.object,
+  callback: PropTypes.func,
   children: PropTypes.node
 }
 
