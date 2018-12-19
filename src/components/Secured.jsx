@@ -2,7 +2,8 @@ import React from 'react'
 import KeyCloak from 'keycloak-js'
 import Logout from './Logout.jsx'
 import PropTypes from 'prop-types'
-import {AASConfig} from '../config/AASConfig'
+import {AASConfig, Config} from '../config/configs'
+import fetch from 'isomorphic-fetch'
 
 class Secured extends React.Component {
   constructor(props) {
@@ -11,13 +12,24 @@ class Secured extends React.Component {
   }
 
   async componentWillMount() {
-    const keycloak = KeyCloak({...AASConfig, ...this.props.config})
+    const response = await fetch(`${Config['location-server-url']}/location/resolve/${Config['AAS-server-name']}?within=5seconds`)
+    let url = Config['AAS-server-url']
+    if (response.status === 200) {
+      const a = await response.json()
+      url = a.uri
+    }
+    await this.instantiateKeycloak({url: url})
+  }
+
+  async instantiateKeycloak(url) {
+    const keycloakConfig = {...AASConfig, ...this.props.config, ...url}
+    const keycloak = KeyCloak(keycloakConfig)
     keycloak.onTokenExpired = () => {
       keycloak.updateToken(0)
         .success(function () {
           console.info('token refreshed successfully')
         })
-        .error(function() {
+        .error(function () {
           console.error('Failed to refresh the token, or the session has expired')
         })
     }
