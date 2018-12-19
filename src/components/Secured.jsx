@@ -11,13 +11,18 @@ class Secured extends React.Component {
     this.state = {keycloak: null, authenticated: false}
   }
 
-  async componentWillMount() {
+  static async resolveAAS() {
     const response = await fetch(`${Config['location-server-url']}/location/resolve/${Config['AAS-server-name']}?within=5seconds`)
     let url = Config['AAS-server-url']
     if (response.status === 200) {
       const a = await response.json()
       url = a.uri
     }
+    return url
+  }
+
+  async componentWillMount() {
+    const url = await Secured.resolveAAS()
     await this.instantiateKeycloak({url: url})
   }
 
