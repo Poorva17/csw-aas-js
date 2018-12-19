@@ -42,10 +42,10 @@ class Secured extends React.Component {
     const authenticated = await keycloak.init({onLoad: 'login-required', flow: 'hybrid'})
     await authenticated.success(() => {
       this.setState({keycloak, authenticated: true})
-      this.props.callback(this.state.authenticated)
+      this.props.onAuthentication(this.state.authenticated)
     }).error(() => {
       this.setState({keycloak, authenticated: false})
-      this.props.callback(this.state.authenticated)
+      this.props.onAuthentication(this.state.authenticated)
     })
   }
 
@@ -76,7 +76,7 @@ class Secured extends React.Component {
 
 Secured.propTypes = {
   config: PropTypes.object,
-  callback: PropTypes.func,
+  onAuthentication: PropTypes.func,
   children: PropTypes.node
 }
 
