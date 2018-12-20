@@ -6,7 +6,6 @@ class TMTAuthStore {
     this.tokenParsed = null
     this.realmAccess = null
     this.resourceAccess = null
-    this.userInfo = []
     this.authenticated = false
   }
 
@@ -16,7 +15,7 @@ class TMTAuthStore {
     this.tokenParsed = keycloak.tokenParsed
     this.realmAccess = keycloak.realmAccess
     this.resourceAccess = keycloak.resourceAccess
-    this.userInfo = keycloak.userInfo
+    this.loadUserInfo = keycloak.loadUserInfo
     this.authenticated = keycloak.authenticated
     return this
   }
