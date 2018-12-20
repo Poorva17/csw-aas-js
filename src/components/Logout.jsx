@@ -9,7 +9,7 @@ class Logout extends React.Component {
 
   logout = () => {
     this.props.history.push('/')
-    this.props.keycloak.logout()
+    this.props.tmtAuth.logout()
   }
 }
 
@@ -19,7 +19,7 @@ Logout.propTypes = {
     replace: PropTypes.func.isRequired,
     createHref: PropTypes.func.isRequired
   }).isRequired,
-  keycloak: PropTypes.object
+  tmtAuth: PropTypes.object
 }
 
 export default withRouter(Logout)

@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter, Route, Link} from 'react-router-dom'
+import {BrowserRouter, Route} from 'react-router-dom'
 
 import aas from 'csw.auth'
 import NavComponent from './NavComponent'
@@ -10,44 +10,32 @@ import ReadConfig from './ReadConfig'
 class ConfigApp extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {authenticated: false}
+    this.state = {authContext: {tmtAuth: null, authenticated: false}}
   }
 
   render() {
     const config = {...AppConfig}
-    return <BrowserRouter>
-      <div style={{'textAlign': 'center'}} className=' row card blue-grey darken-1 col s12 m7'>
-        <NavComponent />
+    return <div>
+      <aas.TMTAuthContext.Provider value={this.state.authContext}>
+        <BrowserRouter>
+          <div style={{'textAlign': 'center'}} className=' row card blue-grey darken-1 col s12 m7'>
+            <NavComponent />
+            <Route path='/login' render={(_) => (<aas.Login config={config} onAuthentication={this.setAuthContext} />)} />
 
-        <Route path='/secured' render={(_) => (<aas.Secured config={config} onAuthentication={this.setAuthenticated}>
-          <Link style={{'color': 'white'}} to='/secured/profile'> profile </Link>
-          <br />
-          <Link style={{'color': 'white'}} to='/secured/list'> list </Link>
-          <br />
-          <Route exact path='/secured/profile' component={ReadConfig} />
-          <Route exact path='/secured/list' component={WriteConfig} />
-        </aas.Secured>)} />
-
-        <Route exact path='/public' component={ReadConfig} />
-
-        <Route exact path='/sso' render={(_) => {
-          if (this.state.authenticated) {
-            return <div>
-              You are logged in!!!
-              <ReadConfig />
+            <Route exact path='/write'render={(_) => (<aas.CheckLogin>
               <WriteConfig />
-            </div>
-          } else {
-            return null
-          }
-        }} />
+            </aas.CheckLogin>)} />
 
-      </div>
-    </BrowserRouter>
+            <Route exact path='/public' component={ReadConfig} />
+
+          </div>
+        </BrowserRouter>
+      </aas.TMTAuthContext.Provider>
+    </div>
   }
 
-  setAuthenticated = (authenticated) => {
-    this.setState({authenticated: authenticated})
+  setAuthContext = ({tmtAuth, authenticated}) => {
+    this.setState({authContext: {tmtAuth, authenticated}})
   }
 }
 
