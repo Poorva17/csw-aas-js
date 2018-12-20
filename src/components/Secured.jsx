@@ -29,7 +29,7 @@ export class Secured extends React.Component {
   }
 
   instantiateKeycloak = async (url) => {
-    console.log('instantiating keycloak')
+    console.info('instantiating keycloak')
     const keycloakConfig = {...AASConfig, ...this.props.config, ...url}
     const keycloak = KeyCloak(keycloakConfig)
     keycloak.onTokenExpired = () => {
@@ -55,8 +55,6 @@ export class Secured extends React.Component {
     if (this.state.keycloak) {
       if (this.state.authenticated) {
         const context = {keycloak: this.state.keycloak, authenticated: this.state.authenticated}
-        console.log('@@@@@@@@@@')
-        console.log(context)
         return <div className='card-content white-text'>
           <AuthContext.Provider value={context}>
             {this.props.children}
