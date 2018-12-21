@@ -2,17 +2,18 @@ import React from 'react'
 import {TMTAuthContext} from 'csw.auth'
 
 class WriteConfig extends React.Component {
-  static contextType = TMTAuthContext;
   constructor(props) {
     super(props)
     this.state = {user: null}
   }
 
   componentWillMount = async () => {
-    let loadUserInfo = await this.context.tmtAuth.loadUserInfo()
-    loadUserInfo.success((user) => {
-      this.setState({user})
-    })
+    if (this.context.tmtAuth) {
+      let loadUserInfo = await this.context.tmtAuth.loadUserInfo()
+      loadUserInfo.success((user) => {
+        this.setState({user})
+      })
+    }
   }
 
   render() {
@@ -23,5 +24,7 @@ class WriteConfig extends React.Component {
     </div>
   }
 }
+
+WriteConfig.contextType = TMTAuthContext
 
 export default WriteConfig
