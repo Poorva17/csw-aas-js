@@ -21,6 +21,7 @@ class ConfigApp extends React.Component {
           <div style={{'textAlign': 'center'}} className=' row card blue-grey darken-1 col s12 m7'>
             <NavComponent />
             <Route path='/login' render={(_) => (<aas.Login config={config} onAuthentication={this.setAuthContext} />)} />
+            <Route path='/logout' render={(_) => (<aas.Logout tmtAuth={this.state.authContext.tmtAuth} onLogout={this.resetAuthContext} />)} />
 
             <Route exact path='/write'render={(_) => (<aas.CheckLogin>
               <WriteConfig />
@@ -36,6 +37,10 @@ class ConfigApp extends React.Component {
 
   setAuthContext = ({tmtAuth, authenticated}) => {
     this.setState({authContext: {tmtAuth, authenticated}})
+  }
+
+  resetAuthContext = () => {
+    this.setState({authContext: {tmtAuth: null, authenticated: false}})
   }
 }
 

@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
 
 class Logout extends React.Component {
   render() {
-    return <button onClick={() => this.logout()} >Logout</button>
+    return null
   }
 
-  logout = () => {
+  componentWillMount = () => {
     this.props.history.push('/')
     this.props.tmtAuth.logout()
+    this.props.onLogout()
   }
 }
 
@@ -19,7 +20,8 @@ Logout.propTypes = {
     replace: PropTypes.func.isRequired,
     createHref: PropTypes.func.isRequired
   }).isRequired,
-  tmtAuth: PropTypes.object
+  tmtAuth: PropTypes.object,
+  onLogout: PropTypes.func
 }
 
 export default withRouter(Logout)

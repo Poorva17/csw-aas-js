@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import {AASConfig, Config} from '../config/configs.js'
 import fetch from 'isomorphic-fetch'
 import {TMTAuth} from './TMTAuth.jsx'
-import Logout from './Logout.jsx'
 
 class Login extends React.Component {
   constructor(props) {
@@ -51,9 +50,7 @@ class Login extends React.Component {
    }
 
    render() {
-     if (this.state.tmtAuth && this.state.authenticated) {
-       return <Logout tmtAuth={this.state.tmtAuth} />
-     } else return null
+     return null
    }
 }
 
