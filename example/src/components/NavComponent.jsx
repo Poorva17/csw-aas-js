@@ -1,9 +1,9 @@
 import {Link} from 'react-router-dom'
 import React from 'react'
-import aas from 'csw.auth'
+import {TMTAuthContext} from 'csw.auth'
 
 class NavComponent extends React.Component {
-  static contextType = aas.TMTAuthContext;
+  static contextType = TMTAuthContext;
 
   render() {
     return <div className='white-text'>

@@ -1,8 +1,8 @@
 import React from 'react'
-import aas from 'csw.auth'
+import {TMTAuthContext} from 'csw.auth'
 
 class WriteConfig extends React.Component {
-  static contextType = aas.TMTAuthContext;
+  static contextType = TMTAuthContext;
   constructor(props) {
     super(props)
     this.state = {user: null}

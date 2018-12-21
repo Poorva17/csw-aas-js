@@ -1,7 +1,7 @@
 import React from 'react'
 import {BrowserRouter, Route} from 'react-router-dom'
 
-import aas from 'csw.auth'
+import {TMTAuthContext, Login, Logout, CheckLogin} from 'csw.auth'
 import NavComponent from './NavComponent'
 import {AppConfig} from '../config/AppConfig'
 import WriteConfig from './WriteConfig'
@@ -16,22 +16,22 @@ class ConfigApp extends React.Component {
   render() {
     const config = {...AppConfig}
     return <div>
-      <aas.TMTAuthContext.Provider value={this.state.authContext}>
+      <TMTAuthContext.Provider value={this.state.authContext}>
         <BrowserRouter>
           <div style={{'textAlign': 'center'}} className=' row card blue-grey darken-1 col s12 m7'>
             <NavComponent />
-            <Route path='/login' render={(_) => (<aas.Login config={config} onAuthentication={this.setAuthContext} />)} />
-            <Route path='/logout' render={(_) => (<aas.Logout tmtAuth={this.state.authContext.tmtAuth} onLogout={this.resetAuthContext} />)} />
+            <Route path='/login' render={(_) => (<Login config={config} onAuthentication={this.setAuthContext} />)} />
+            <Route path='/logout' render={(_) => (<Logout tmtAuth={this.state.authContext.tmtAuth} onLogout={this.resetAuthContext} />)} />
 
-            <Route exact path='/write'render={(_) => (<aas.CheckLogin>
+            <Route exact path='/write'render={(_) => (<CheckLogin>
               <WriteConfig />
-            </aas.CheckLogin>)} />
+            </CheckLogin>)} />
 
             <Route exact path='/public' component={ReadConfig} />
 
           </div>
         </BrowserRouter>
-      </aas.TMTAuthContext.Provider>
+      </TMTAuthContext.Provider>
     </div>
   }
 
