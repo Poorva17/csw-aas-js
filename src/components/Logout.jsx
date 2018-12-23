@@ -2,7 +2,7 @@ import React from 'react'
 import {withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-class Logout extends React.Component {
+export class Logout extends React.Component {
   render() {
     return null
   }
@@ -16,9 +16,7 @@ class Logout extends React.Component {
 
 Logout.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    replace: PropTypes.func.isRequired,
-    createHref: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired
   }).isRequired,
   tmtAuth: PropTypes.object,
   onLogout: PropTypes.func
