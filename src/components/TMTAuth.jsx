@@ -1,5 +1,3 @@
-import React from 'react'
-
 class TMTAuthStore {
   constructor() {
     this.token = null
@@ -21,8 +19,4 @@ class TMTAuthStore {
   }
 }
 
-const TMTAuth = new TMTAuthStore()
-
-const TMTAuthContext = React.createContext({tmtAuth: null, authenticated: false})
-
-export {TMTAuth, TMTAuthContext}
+export const TMTAuth = new TMTAuthStore()

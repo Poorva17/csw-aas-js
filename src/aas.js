@@ -1,5 +1,6 @@
 import Logout from './components/Logout.jsx'
-import {TMTAuthContext, TMTAuth} from './components/TMTAuth.jsx'
+import {TMTAuth} from './components/TMTAuth.jsx'
+import {TMTAuthContext} from './components/TMTAuthContext.jsx'
 import Login from './components/Login.jsx'
 import CheckLogin from './components/CheckLogin.jsx'
 
