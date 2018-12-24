@@ -1,8 +1,11 @@
 import React from 'react'
 import { Logout } from '../../components/Logout'
-import {shallow} from 'enzyme'
+import Enzyme, {shallow} from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
 describe('<Logout />', () => {
+  Enzyme.configure({ adapter: new Adapter() })
+
   it('should call logout', () => {
     const props = {
       tmtAuth: {
