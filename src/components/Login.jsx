@@ -1,14 +1,13 @@
 import React from 'react'
-import KeyCloak from 'keycloak-js'
 import PropTypes from 'prop-types'
-import {AASConfig, Config} from '../config/configs.js'
+import {Config} from '../config/configs.js'
 import fetch from 'isomorphic-fetch'
 import {TMTAuth} from './TMTAuth.jsx'
 
 class Login extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {tmtAuth: null, authenticated: false}
+    this.state = {tmtAuth: null, isAuthenticated: false}
   }
 
   static async resolveAAS() {
@@ -22,25 +21,13 @@ class Login extends React.Component {
   }
 
   instantiateAAS = async (url) => {
-    console.info('instantiating AAS')
-    const keycloakConfig = {...AASConfig, ...this.props.config, ...url}
-    const keycloak = KeyCloak(keycloakConfig)
-    keycloak.onTokenExpired = () => {
-      keycloak.updateToken(0)
-        .success(function () {
-          console.info('token refreshed successfully')
-        })
-        .error(function() {
-          console.error('Failed to refresh the token, or the session has expired')
-        })
-    }
-    const authenticated = await keycloak.init({onLoad: 'login-required', flow: 'hybrid'})
+    const {keycloak, authenticated} = TMTAuth.authenticate(this.props.config, url)
     await authenticated.success(() => {
       const tmtAuth = TMTAuth.from(keycloak)
-      this.setState({tmtAuth, authenticated: tmtAuth.authenticated})
-      this.props.onAuthentication({tmtAuth: this.state.tmtAuth, authenticated: this.state.authenticated})
+      this.setState({tmtAuth, isAuthenticated: tmtAuth.isAuthenticated})
+      this.props.onAuthentication({tmtAuth: this.state.tmtAuth, isAuthenticated: this.state.isAuthenticated})
     }).error(() => {
-      this.props.onAuthentication({tmtAuth: this.state.tmtAuth, authenticated: this.state.authenticated})
+      this.props.onAuthentication({tmtAuth: this.state.tmtAuth, isAuthenticated: this.state.isAuthenticated})
     })
   }
 

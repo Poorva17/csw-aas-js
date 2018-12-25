@@ -10,7 +10,7 @@ import ReadConfig from './ReadConfig'
 class ConfigApp extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {authContext: {tmtAuth: null, authenticated: false}}
+    this.state = {authContext: {tmtAuth: null, isAuthenticated: false}}
   }
 
   render() {
@@ -35,12 +35,12 @@ class ConfigApp extends React.Component {
     </div>
   }
 
-  setAuthContext = ({tmtAuth, authenticated}) => {
-    this.setState({authContext: {tmtAuth, authenticated}})
+  setAuthContext = ({tmtAuth, isAuthenticated}) => {
+    this.setState({authContext: {tmtAuth, isAuthenticated: isAuthenticated}})
   }
 
   resetAuthContext = () => {
-    this.setState({authContext: {tmtAuth: null, authenticated: false}})
+    this.setState({authContext: {tmtAuth: null, isAuthenticated: false}})
   }
 }
 

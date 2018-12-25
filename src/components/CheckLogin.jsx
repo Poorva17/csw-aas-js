@@ -9,7 +9,7 @@ class CheckLogin extends React.Component {
         {context => {
           return (
             <div className='card-content white-text'>
-              {context.authenticated ? this.props.children : null}
+              {context.isAuthenticated ? this.props.children : null}
             </div>
           )
         }}

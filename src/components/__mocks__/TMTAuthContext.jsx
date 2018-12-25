@@ -1,4 +1,4 @@
-const context = {tmtAuth: {}, authenticated: true}
+const context = {tmtAuth: {}, isAuthenticated: true}
 
 export const TMTAuthContext = ({
   Consumer(props) {

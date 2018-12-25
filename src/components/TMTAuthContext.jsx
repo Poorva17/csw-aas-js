@@ -1,3 +1,3 @@
 import React from 'react'
 
-export const TMTAuthContext = React.createContext({tmtAuth: null, authenticated: false})
+export const TMTAuthContext = React.createContext({tmtAuth: null, isAuthenticated: false})

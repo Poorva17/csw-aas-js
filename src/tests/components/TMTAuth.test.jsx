@@ -20,6 +20,6 @@ describe('<TMTAuth />', () => {
     expect(tmtAuth.realmAccess).toBe(mockKeycloak.realmAccess)
     expect(tmtAuth.resourceAccess).toBe(mockKeycloak.resourceAccess)
     expect(tmtAuth.loadUserInfo).toBe(mockKeycloak.loadUserInfo)
-    expect(tmtAuth.authenticated).toBe(mockKeycloak.authenticated)
+    expect(tmtAuth.isAuthenticated).toBe(mockKeycloak.authenticated)
   })
 })

@@ -12,7 +12,7 @@ class NavComponent extends React.Component {
       <Link style={{'color': 'white'}} to='/write'> Secured - Write Config </Link>
       <br />
 
-      {this.context.authenticated
+      {this.context.isAuthenticated
         ? <Link style={{'color': 'white'}} to='/logout'> Logout </Link>
         : <Link style={{'color': 'white'}} to='/login'> Login </Link>}
 
