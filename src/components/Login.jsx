@@ -21,8 +21,8 @@ class Login extends React.Component {
   }
 
   instantiateAAS = async (url) => {
-    const {keycloak, authenticated} = TMTAuth.authenticate(this.props.config, url)
-    await authenticated.success(() => {
+    const {keycloak, authenticated} = await TMTAuth.authenticate(this.props.config, url)
+    authenticated.success(() => {
       const tmtAuth = TMTAuth.from(keycloak)
       this.setState({tmtAuth, isAuthenticated: tmtAuth.isAuthenticated})
       this.props.onAuthentication({tmtAuth: this.state.tmtAuth, isAuthenticated: this.state.isAuthenticated})
